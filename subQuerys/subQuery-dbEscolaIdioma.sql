@@ -18,15 +18,14 @@ SELECT nomeCurso, valorCurso FROM tbCurso WHERE valorCurso = (SELECT MAX(valorCu
 
 ---e) Criar uma consulta que retorne o nome do aluno e o nome do curso do aluno que fez a última matrícula
 
-SELECT a.nomeAluno, c.nomeCurso
-FROM tbAluno a
-INNER JOIN tbMatricula m
-    ON a.codAluno = m.codAluno
-INNER JOIN tbTurma t
-    ON m.codTurma = t.codTurma
-INNER JOIN tbCurso c
-    ON t.codCurso = c.codCurso
-WHERE m.dataMatricula =
+SELECT a.nomeAluno, c.nomeCurso FROM tbAluno a
+        INNER JOIN tbMatricula m
+            ON a.codAluno = m.codAluno
+                INNER JOIN tbTurma t
+                ON m.codTurma = t.codTurma
+                    INNER JOIN tbCurso c
+                    ON t.codCurso = c.codCurso
+                            WHERE m.dataMatricula =
 (
     SELECT MAX(dataMatricula)
     FROM tbMatricula
@@ -36,8 +35,7 @@ WHERE m.dataMatricula =
 
 SELECT nomeAluno FROM tbAluno WHERE codAluno =
 (
-    SELECT codAluno
-    FROM tbMatricula
+    SELECT codAluno FROM tbMatricula
     WHERE dataMatricula = (
         SELECT MIN(dataMatricula)
         FROM tbMatricula
